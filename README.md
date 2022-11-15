@@ -122,7 +122,64 @@
 #### 1 예약번호를 넣고 조회하는 페이지 생성
 #### 2 예약번호에 해당하는 주민이 있는 경우는 아래와 같이 나타냄.
 #### vaccine_list.jsp(예약리스트페이지)
-![image](https://user-images.githubusercontent.com/102803326/201582934-e31f0969-4bd4-41aa-a764-c9e6fa60856f.png)
+![image](https://user-images.githubusercontent.com/102803326/201859733-bb81c021-e6e5-46de-8e8f-4111a68e82cc.png)
+```jsp
+<%@page import="DBPKG.DBConnection"%>
+<%@page import="java.sql.*"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% String sql="select resvno, jumin, vcode, hospcode, resvdate, resvtime "
+		     +"from TBL_VACCRESV_202108 order by resvno";
+
+   Connection conn = DBConnection.getConnection();
+   PreparedStatement ps = conn.prepareStatement(sql);
+   ResultSet rs= ps.executeQuery();
+%>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="css/style.css">
+</head>
+<body>
+ <header>
+	  <jsp:include page="layout/header.jsp"></jsp:include>
+ </header>
+
+ <nav>
+   	 <jsp:include page="layout/nav.jsp"></jsp:include>
+ </nav>
+		
+	<section><div class="section">
+		<div class="title">예악정보리스트</div>
+		<div class="scroll"><table class="table_list">
+		 <tr><th>예약번호</th><th>주민번호</th><th>백신코드</th><th>병원코드</th><th>예약날짜</th><th>예약시간</th></tr>
+		
+		<% while(rs.next()){%>
+		<tr>
+		  <td><%= rs.getString(1) %></td>
+		  <td><%= rs.getString(2) %></td>
+		  <td><%= rs.getString(3) %></td>
+		  <td><%= rs.getString(4) %></td>
+		  <td><%= rs.getString(5) %></td>
+		  <td><%= rs.getString(6) %></td>
+		
+		<%} %>
+		</tr></table></div>
+	</div></section>
+ <footer>
+	<jsp:include page="layout/footer.jsp"></jsp:include>
+ </footer>
+</body>
+</html>
+```
+1. 주민등록번호를 이용하여 성별을 나타냄.(주민등록번호 뒷 첫 째자리가 1이면 남, 2면 여)
+2. 예약날짜는 YYYY년MM월DD일의 형태로 출력합.
+3. 예약시간은 hh:mm의 형태로 출력함.
+4. 병원주소는 10은 서울, 20은 대전, 30은 대구, 40은 광주로 출력함.
+5. 들어가기 버튼 클릭시 백신예약 조회페이지로 이동함.
 #### vaccine_search_list.jsp(예약조회결과 페이지)
 ![image](https://user-images.githubusercontent.com/102803326/201582958-40347dcc-2be1-4ab1-8f70-e58866a6b5d0.png)
 #### vaccine_total.jsp(백신예약현황 페이지)
