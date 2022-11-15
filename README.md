@@ -15,7 +15,7 @@
 ### 2) 페이지 분석
 
 #### vaccine_reservation.jsp(백신예약 페이지)
-![image](https://user-images.githubusercontent.com/102803326/201582858-51d2048a-17dd-4890-94c2-b51789d745af.png)
+![image](https://user-images.githubusercontent.com/102803326/201843764-a09524a2-cb01-433b-9a38-4205a926c863.png)
 
 ```
   <%@page import="java.text.SimpleDateFormat"%>
@@ -62,7 +62,65 @@
 #### ⑤ 모든 항목에 대하여 유효성 검사를 실시하며, 값이 비어있거나 선택되지 않은 경우에는 오류메세지를 띄운 후 포커스를 이동함.
 
 #### vaccine_search.jsp(예약조회페이지)
-![image](https://user-images.githubusercontent.com/102803326/201582909-c1c6ef2d-ae7e-4fa4-8cc9-45d7fb267ef6.png)
+![image](https://user-images.githubusercontent.com/102803326/201844118-2e3f5389-7af5-4e27-bca7-072a6e635be2.png)
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="css/style.css">
+<script type="text/javascript">
+	function checkValue2() {
+		if(!document.sData.rNum.value) {
+			alert("회원번호를 입력하세요.");
+			sData.rNum.focus();
+			return false;
+		} 
+		return true;}
+</script>
+</head>
+<body>
+	<header>
+	  <jsp:include page="layout/header.jsp"></jsp:include>
+ </header>
+
+ <nav>
+   	 <jsp:include page="layout/nav.jsp"></jsp:include>
+ </nav>
+		
+ <section>
+	<div class="section">
+		<div class="title">백신예약조회</div>
+		<div>
+		<form name="sData" action="search_reservation_table.jsp" method="post" onsubmit="return checkValue2()">
+			<table class="table_list">
+				<tr>
+					<th>예약번호</th>
+					<td><input type="text" name="rNum"></td>
+				</tr>
+				<tr>
+					<th colspan="2">
+						<input class="btn_st" type="submit" value="조회하기">
+						<input class="btn_st" type="button" value="홈으로" onclick="location.href='index.jsp'">
+					</th>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+ </section>	
+ <footer>
+	<jsp:include page="layout/footer.jsp"></jsp:include>
+ </footer>	
+</body>
+</html>
+```
+#### 1 예약번호를 넣고 조회하는 페이지 생성
+#### 2 예약번호에 해당하는 주민이 있는 경우는 아래와 같이 나타냄.
 #### vaccine_list.jsp(예약리스트페이지)
 ![image](https://user-images.githubusercontent.com/102803326/201582934-e31f0969-4bd4-41aa-a764-c9e6fa60856f.png)
 #### vaccine_search_list.jsp(예약조회결과 페이지)
